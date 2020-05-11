@@ -1,0 +1,27 @@
+<meta charset="utf8">
+<div style="width:300px;height:300px;margin:0 auto;border:1px solid #ccc"></div>
+<center>
+    <textarea style="width:300px;height:100px"></textarea><br/>
+    <button>发送</button>
+    
+</center>
+
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script>
+    $("button").click(function(){
+        var text = $("textarea").val();
+        $.post("pub.php",{"content":text});
+    });
+ 
+    function getdata(){
+        $.post("sub.php",function(data){
+            if(data){
+                console.log(data);
+                $("div").append(data+"<br/>");
+                $("textarea").val("");
+                getdata();
+            }
+        });
+    }
+    getdata();
+</script>
